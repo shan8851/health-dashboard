@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "~/components/ui/button";
 import { api } from "~/trpc/react";
 
 export default function GitHubCommitList() {
@@ -17,35 +18,39 @@ export default function GitHubCommitList() {
   });
 
   return (
-    <div className="mt-10">
-      <div className="mb-4 flex items-center justify-between">
-        <h2 className="text-xl font-semibold">Recent GitHub Commits</h2>
-        <button
+    <div className="flex h-full flex-col">
+      <div className="mb-3 flex items-center justify-between">
+        <h3 className="text-primary text-lg font-semibold">Recent Commits</h3>
+        <Button
           onClick={() => syncCommits({ limit: 50 })}
           disabled={isPending}
-          className="rounded bg-purple-600 px-4 py-2 text-white disabled:opacity-50"
+          size="sm"
         >
           {isPending ? "Syncing..." : "Sync Commits"}
-        </button>
+        </Button>
       </div>
 
-      {isLoading && <p className="text-sm text-gray-500">Loading commits...</p>}
+      {isLoading && (
+        <p className="text-muted-foreground text-sm">Loading commits...</p>
+      )}
       {isError && (
-        <p className="text-sm text-red-500">Failed to load commits.</p>
+        <p className="text-destructive text-sm">Failed to load commits.</p>
       )}
-
       {commits?.length === 0 && !isLoading && (
-        <p className="text-sm text-gray-500">No commits found.</p>
+        <p className="text-muted-foreground text-sm">No commits found.</p>
       )}
 
-      <ul className="space-y-3">
+      <ul className="space-y-3 overflow-y-auto pr-1">
         {commits?.map((commit) => (
-          <li key={commit.id} className="rounded border p-3">
-            <div className="text-xs text-gray-500">
-              {new Date(commit.date).toLocaleString()}
+          <li
+            key={commit.id}
+            className="border-border bg-muted/10 rounded-md border p-3"
+          >
+            <div className="text-muted-foreground text-xs">
+              {new Date(commit.date).toLocaleString("en-GB")}
             </div>
-            <div className="font-mono text-sm">{commit.repo}</div>
-            <div className="text-base">{commit.message}</div>
+            <div className="text-accent font-mono text-sm">{commit.repo}</div>
+            <div className="text-foreground text-base">{commit.message}</div>
           </li>
         ))}
       </ul>

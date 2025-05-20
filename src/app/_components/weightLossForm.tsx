@@ -1,9 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { Button } from "~/components/ui/button";
+import { Input } from "~/components/ui/input";
 import { api } from "~/trpc/react";
 
-export default function WeightLogForm() {
+export default function WeightLogForm({
+  onSuccess,
+}: {
+  onSuccess?: () => void;
+}) {
   const [value, setValue] = useState("");
   const utils = api.useUtils();
 
@@ -11,32 +17,29 @@ export default function WeightLogForm() {
     onSuccess: async () => {
       await utils.weight.getAll.invalidate();
       setValue("");
+      onSuccess?.();
     },
   });
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const num = parseFloat(value);
+    if (!isNaN(num)) mutation.mutate({ weight: num });
+  };
+
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        const num = parseFloat(value);
-        if (!isNaN(num)) mutation.mutate({ weight: num });
-      }}
-      className="flex items-center gap-4"
-    >
-      <input
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <Input
         type="number"
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder="Weight in kg"
-        className="rounded border p-2"
+        className="bg-background text-foreground"
       />
-      <button
-        type="submit"
-        disabled={mutation.isPending}
-        className="rounded bg-blue-600 px-4 py-2 text-white"
-      >
+
+      <Button type="submit" disabled={mutation.isPending} variant="default">
         {mutation.isPending ? "Saving..." : "Add Entry"}
-      </button>
+      </Button>
     </form>
   );
 }

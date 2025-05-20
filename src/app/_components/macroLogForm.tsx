@@ -1,9 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { Button } from "~/components/ui/button";
+import { Input } from "~/components/ui/input";
 import { api } from "~/trpc/react";
 
-export default function MacroLogForm() {
+export default function MacroLogForm({
+  onSuccess,
+}: {
+  onSuccess?: () => void;
+}) {
   const [form, setForm] = useState({
     calories: "",
     protein: "",
@@ -16,6 +22,7 @@ export default function MacroLogForm() {
     onSuccess: async () => {
       await utils.macro.getAll.invalidate();
       setForm({ calories: "", protein: "", carbs: "", fats: "" });
+      onSuccess?.();
     },
   });
 
@@ -23,42 +30,44 @@ export default function MacroLogForm() {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const payload = {
+      calories: parseInt(form.calories),
+      protein: parseInt(form.protein),
+      carbs: parseInt(form.carbs),
+      fats: parseInt(form.fats),
+    };
+
+    if (Object.values(payload).some(isNaN)) return;
+
+    macroMutation.mutate(payload);
+  };
+
   return (
     <form
-      onSubmit={(e) => {
-        e.preventDefault();
-
-        const payload = {
-          calories: parseInt(form.calories),
-          protein: parseInt(form.protein),
-          carbs: parseInt(form.carbs),
-          fats: parseInt(form.fats),
-        };
-
-        if (Object.values(payload).some(isNaN)) return;
-
-        macroMutation.mutate(payload);
-      }}
-      className="flex max-w-sm flex-col gap-3"
+      onSubmit={handleSubmit}
+      className="flex w-full max-w-sm flex-col gap-3"
     >
       {(["calories", "protein", "carbs", "fats"] as const).map((key) => (
-        <input
+        <Input
           key={key}
           type="number"
           value={form[key]}
           onChange={(e) => handleChange(key, e.target.value)}
-          placeholder={key}
-          className="rounded border p-2"
+          placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
+          className="bg-background text-foreground"
         />
       ))}
 
-      <button
+      <Button
         type="submit"
         disabled={macroMutation.isPending}
-        className="rounded bg-green-600 px-4 py-2 text-white"
+        variant="default"
       >
         {macroMutation.isPending ? "Saving..." : "Add Macros"}
-      </button>
+      </Button>
     </form>
   );
 }
