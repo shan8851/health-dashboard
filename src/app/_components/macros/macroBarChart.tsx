@@ -13,11 +13,10 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { type RouterOutputs } from "~/trpc/react";
 
-// Define expected prop type
-type MacroLogs = RouterOutputs["macro"]["getAll"];
+type MacroLog = RouterOutputs["macro"]["getAll"]["data"][number];
 
 type Props = {
-  data: MacroLogs;
+  data: MacroLog[];
 };
 
 export function MacroBarChart({ data }: Props) {

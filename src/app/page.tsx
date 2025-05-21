@@ -10,7 +10,7 @@ export default async function Home() {
       <main className="bg-background text-foreground p-6">
         <SummaryStats />
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <section className="border-border bg-card flex h-[400px] flex-col overflow-hidden rounded-md border p-4 shadow-sm">
+          <section className="border-border bg-card flex h-[600px] flex-col overflow-hidden rounded-md border p-4 shadow-sm">
             <h2 className="text-primary mb-2 text-lg font-semibold">
               Weight Tracker
             </h2>
@@ -18,7 +18,7 @@ export default async function Home() {
               <WeightLogList />
             </div>
           </section>
-          <section className="border-border bg-card flex h-[400px] flex-col overflow-hidden rounded-md border p-4 shadow-sm">
+          <section className="border-border bg-card flex h-[600px] flex-col overflow-hidden rounded-md border p-4 shadow-sm">
             <h2 className="text-primary mb-2 text-lg font-semibold">
               Macro Tracker
             </h2>
@@ -26,7 +26,7 @@ export default async function Home() {
               <MacroLogList />
             </div>
           </section>
-          <section className="border-border bg-card flex h-[400px] flex-col overflow-hidden rounded-md border p-4 shadow-sm">
+          <section className="border-border bg-card flex h-[600px] flex-col overflow-hidden rounded-md border p-4 shadow-sm">
             <h2 className="text-primary mb-2 text-lg font-semibold">
               Activity Tracker
             </h2>

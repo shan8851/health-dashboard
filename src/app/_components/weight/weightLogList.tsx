@@ -12,12 +12,13 @@ import {
 import { api } from "~/trpc/react";
 import { EmptyList } from "../application/emptyList";
 import { LoadingSpinner } from "../application/loadingSpinner";
+import { WeightCard } from "./weightCard";
 import WeightLogForm from "./weightLossForm";
 
 export default function WeightLogList() {
   const [open, setOpen] = useState(false);
 
-  const { data: logs = [], isLoading } = api.weight.getAll.useQuery();
+  const { data: logs = [], isLoading } = api.weight.getLatest.useQuery();
 
   return (
     <div className="flex h-full flex-col">
@@ -42,19 +43,13 @@ export default function WeightLogList() {
       {isLoading && <LoadingSpinner />}
       {!isLoading && logs.length === 0 && <EmptyList />}
       {!isLoading && logs.length > 0 && (
-        <ul className="space-y-2 overflow-y-auto pr-1">
-          {logs.map((log) => (
-            <li
-              key={log.id}
-              className="border-border bg-muted/10 rounded-md border p-2 text-sm"
-            >
-              {new Date(log.date).toLocaleDateString("en-GB")} —{" "}
-              <span className="text-foreground font-medium">
-                {log.weight} kg
-              </span>
-            </li>
-          ))}
-        </ul>
+        <div className="space-y-2 overflow-y-auto pr-1">
+          {logs.map((log, i) => {
+            const prev = logs[i + 1];
+
+            return <WeightCard key={log.id} prev={prev} log={log} />;
+          })}
+        </div>
       )}
     </div>
   );

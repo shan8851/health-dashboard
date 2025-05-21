@@ -2,13 +2,50 @@ import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const activityRouter = createTRPCRouter({
-  getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.db.activityLog.findMany({
-      orderBy: { date: "desc" },
-      take: 30,
-    });
-  }),
+  // Paginated getAll
+  getAll: publicProcedure
+    .input(
+      z
+        .object({
+          page: z.number().min(1).default(1),
+          limit: z.number().min(1).max(100).default(10),
+        })
+        .optional(),
+    )
+    .query(async ({ ctx, input }) => {
+      const page = input?.page ?? 1;
+      const limit = input?.limit ?? 10;
 
+      const [total, data] = await Promise.all([
+        ctx.db.activityLog.count(),
+        ctx.db.activityLog.findMany({
+          skip: (page - 1) * limit,
+          take: limit,
+          orderBy: { date: "desc" },
+        }),
+      ]);
+
+      return {
+        data,
+        page,
+        total,
+        totalPages: Math.ceil(total / limit),
+      };
+    }),
+
+  // Just get latest X entries, default 10
+  getLatest: publicProcedure
+    .input(
+      z.object({ count: z.number().min(1).max(50).default(10) }).optional(),
+    )
+    .query(({ ctx, input }) => {
+      return ctx.db.activityLog.findMany({
+        orderBy: { date: "desc" },
+        take: input?.count ?? 10,
+      });
+    }),
+
+  // Mutation to add activity
   add: publicProcedure
     .input(
       z.object({

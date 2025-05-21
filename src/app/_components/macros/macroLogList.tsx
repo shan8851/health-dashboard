@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { getCalorieIndicator } from "~/app/_utils/getCalorieIndicator";
 import { Button } from "~/components/ui/button";
 import {
   Dialog,
@@ -13,13 +12,13 @@ import {
 import { api } from "~/trpc/react";
 import { EmptyList } from "../application/emptyList";
 import { LoadingSpinner } from "../application/loadingSpinner";
+import { MacroCard } from "./macroCard";
 import MacroLogForm from "./macroLogForm";
-import { MacroTrafficLight } from "./macroTrafficLight";
 
 export default function MacroLogList() {
   const [open, setOpen] = useState(false);
 
-  const { data: logs = [], isLoading } = api.macro.getAll.useQuery();
+  const { data: logs = [], isLoading } = api.macro.getLatest.useQuery();
 
   return (
     <div className="flex h-full flex-col">
@@ -44,29 +43,11 @@ export default function MacroLogList() {
       {isLoading && <LoadingSpinner />}
       {!isLoading && logs.length === 0 && <EmptyList />}
       {!isLoading && logs.length > 0 && (
-        <ul className="space-y-2 overflow-y-auto pr-1">
+        <div className="space-y-2 overflow-y-auto pr-1">
           {logs.map((log) => (
-            <li
-              key={log.id}
-              className="border-border bg-muted/10 rounded-md border p-3 text-sm"
-            >
-              <div className="mb-2 flex items-start justify-between">
-                <span className="text-foreground text-xl">
-                  {getCalorieIndicator(log.calories)} {log.calories} kcal
-                </span>
-                <span className="text-muted-foreground text-xs">
-                  {new Date(log.date).toLocaleDateString("en-GB")}
-                </span>
-              </div>
-
-              <MacroTrafficLight
-                protein={log.protein}
-                carbs={log.carbs}
-                fats={log.fats}
-              />
-            </li>
+            <MacroCard key={log.id} log={log} />
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );

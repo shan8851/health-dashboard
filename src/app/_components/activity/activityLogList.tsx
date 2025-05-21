@@ -12,12 +12,13 @@ import {
 import { api } from "~/trpc/react";
 import { EmptyList } from "../application/emptyList";
 import { LoadingSpinner } from "../application/loadingSpinner";
+import { ActivityCard } from "./activityCard";
 import ActivityLogForm from "./activityLogForm";
 
 export default function ActivityLogList() {
   const [open, setOpen] = useState(false);
 
-  const { data: logs = [], isLoading } = api.activity.getAll.useQuery();
+  const { data: logs = [], isLoading } = api.activity.getLatest.useQuery();
 
   return (
     <div className="flex h-full flex-col">
@@ -40,21 +41,11 @@ export default function ActivityLogList() {
       {isLoading && <LoadingSpinner />}
       {!isLoading && logs.length === 0 && <EmptyList />}
       {logs.length > 0 && (
-        <ul className="space-y-2 overflow-y-auto pr-1">
+        <div className="space-y-2 overflow-y-auto pr-1">
           {logs.map((log) => (
-            <li
-              key={log.id}
-              className="border-border bg-muted/10 rounded-md border p-3 text-sm"
-            >
-              <div className="text-muted-foreground text-xs">
-                {new Date(log.date).toLocaleDateString("en-GB")}
-              </div>
-              <div className="text-foreground text-base">
-                {log.name} — <strong>{log.duration} min</strong>
-              </div>
-            </li>
+            <ActivityCard log={log} key={log.id} />
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
