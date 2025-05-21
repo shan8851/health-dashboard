@@ -24,9 +24,9 @@ model MacroLog {
   fats     Int
 }
 
-model GitHubCommit {
-  id      String   @id
-  repo    String
-  message String
-  date    DateTime
+model ActivityLog {
+  id       String   @id @default(uuid())
+  name     String
+  duration Int      // minutes
+  date     DateTime @default(now())
 }

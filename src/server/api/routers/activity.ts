@@ -1,9 +1,9 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
-export const weightRouter = createTRPCRouter({
-  getAll: publicProcedure.query(async ({ ctx }) => {
-    return ctx.db.weightLog.findMany({
+export const activityRouter = createTRPCRouter({
+  getAll: publicProcedure.query(({ ctx }) => {
+    return ctx.db.activityLog.findMany({
       orderBy: { date: "desc" },
       take: 30,
     });
@@ -12,17 +12,19 @@ export const weightRouter = createTRPCRouter({
   add: publicProcedure
     .input(
       z.object({
-        weight: z.number().gt(0),
+        name: z.string().min(2),
+        duration: z.number().min(1),
         date: z
           .date()
           .optional()
           .default(() => new Date()),
       }),
     )
-    .mutation(async ({ input, ctx }) => {
-      return ctx.db.weightLog.create({
+    .mutation(({ input, ctx }) => {
+      return ctx.db.activityLog.create({
         data: {
-          weight: input.weight,
+          name: input.name,
+          duration: input.duration,
           date: input.date ?? new Date(),
         },
       });

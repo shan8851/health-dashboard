@@ -1,7 +1,7 @@
-import "~/styles/globals.css";
-
 import { type Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
+import { Toaster } from "~/components/ui/sonner";
+import "~/styles/globals.css";
 import { TRPCReactProvider } from "~/trpc/react";
 import Footer from "./_components/layout/footer";
 import Header from "./_components/layout/header";
@@ -26,6 +26,7 @@ export default function RootLayout({
         <TRPCReactProvider>
           <Header />
           <main className="flex-1 p-6">{children}</main>
+          <Toaster position="top-right" richColors />
           <Footer />
         </TRPCReactProvider>
       </body>

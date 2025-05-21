@@ -1,6 +1,7 @@
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
-import { githubRouter } from "./routers/github";
+import { activityRouter } from "./routers/activity";
 import { macroRouter } from "./routers/macro";
+import { summaryRouter } from "./routers/summary";
 import { weightRouter } from "./routers/weight";
 
 /**
@@ -11,7 +12,8 @@ import { weightRouter } from "./routers/weight";
 export const appRouter = createTRPCRouter({
   weight: weightRouter,
   macro: macroRouter,
-  github: githubRouter,
+  activity: activityRouter,
+  summary: summaryRouter,
 });
 
 // export type definition of API

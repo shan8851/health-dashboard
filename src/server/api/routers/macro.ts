@@ -12,13 +12,25 @@ export const macroRouter = createTRPCRouter({
   add: publicProcedure
     .input(
       z.object({
-        calories: z.number().int().min(0),
-        protein: z.number().int().min(0),
-        carbs: z.number().int().min(0),
-        fats: z.number().int().min(0),
+        calories: z.number(),
+        protein: z.number(),
+        carbs: z.number(),
+        fats: z.number(),
+        date: z
+          .date()
+          .optional()
+          .default(() => new Date()),
       }),
     )
-    .mutation(async ({ input, ctx }) => {
-      return ctx.db.macroLog.create({ data: input });
+    .mutation(({ input, ctx }) => {
+      return ctx.db.macroLog.create({
+        data: {
+          calories: input.calories,
+          protein: input.protein,
+          carbs: input.carbs,
+          fats: input.fats,
+          date: input.date ?? new Date(),
+        },
+      });
     }),
 });

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "sonner";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { api } from "~/trpc/react";
@@ -15,13 +16,23 @@ export default function MacroLogForm({
     protein: "",
     carbs: "",
     fats: "",
+    date: new Date().toISOString().split("T")[0],
   });
 
   const utils = api.useUtils();
   const macroMutation = api.macro.add.useMutation({
     onSuccess: async () => {
       await utils.macro.getAll.invalidate();
-      setForm({ calories: "", protein: "", carbs: "", fats: "" });
+      setForm({
+        calories: "",
+        protein: "",
+        carbs: "",
+        fats: "",
+        date: new Date().toISOString().split("T")[0],
+      });
+      toast.success("Macros logged", {
+        description: `${form.calories} calories on ${form.date}`,
+      });
       onSuccess?.();
     },
   });
@@ -38,9 +49,11 @@ export default function MacroLogForm({
       protein: parseInt(form.protein),
       carbs: parseInt(form.carbs),
       fats: parseInt(form.fats),
+      date: form.date ? new Date(form.date) : new Date(),
     };
 
-    if (Object.values(payload).some(isNaN)) return;
+    if (Object.values(payload).some((v) => typeof v === "number" && isNaN(v)))
+      return;
 
     macroMutation.mutate(payload);
   };
@@ -60,6 +73,13 @@ export default function MacroLogForm({
           className="bg-background text-foreground"
         />
       ))}
+
+      <Input
+        type="date"
+        value={form.date}
+        onChange={(e) => handleChange("date", e.target.value)}
+        className="bg-background text-foreground"
+      />
 
       <Button
         type="submit"

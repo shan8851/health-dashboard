@@ -4,6 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
+  --radius: 0.5rem;
   --font-sans:
     var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -47,30 +48,29 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
-/* Dracula dark theme */
 .dark {
-  --background: #282a36;
-  --foreground: #f8f8f2;
+  --background: #101215; /* matches Whoop app bg */
+  --foreground: #f1f5f9;
 
-  --card: #44475a;
-  --card-foreground: #f8f8f2;
+  --card: #1a1d21;
+  --card-foreground: #f8fafc;
 
-  --primary: #bd93f9;
-  --primary-foreground: #282a36;
+  --primary: #3b82f6; /* vibrant blue */
+  --primary-foreground: #f1f5f9;
 
-  --secondary: #ffb86c;
-  --secondary-foreground: #282a36;
+  --secondary: #1f2937;
+  --secondary-foreground: #e5e7eb;
 
-  --muted: #6272a4;
-  --muted-foreground: #f8f8f2;
+  --muted: #334155;
+  --muted-foreground: #94a3b8;
 
-  --accent: #8be9fd;
-  --accent-foreground: #282a36;
+  --accent: #22c55e;
+  --accent-foreground: #f8fafc;
 
-  --destructive: #ff5555;
-  --border: #44475a;
-  --input: #44475a;
-  --ring: #ff79c6;
+  --destructive: #ef4444;
+  --border: #2a2e32;
+  --input: #2a2e32;
+  --ring: #3b82f6;
 }
 
 @layer base {
@@ -78,6 +78,16 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE & Edge */
+    scrollbar-width: none; /* Firefox */
   }
 }
