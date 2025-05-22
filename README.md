@@ -1,29 +1,31 @@
-# Create T3 App
+# 🧠 Shan's Health Dashboard
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+This project is a personal health and fitness dashboard built with the [T3 Stack](https://create.t3.gg/). It helps track and visualize key health metrics like **weight**, **macronutrients**, and **activities** over time.
 
-## What's next? How do I make an app with this?
+## ✨ Features
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+- 📊 Weight logging with visual progress charts
+- 🍱 Macro tracking with color-coded nutrient indicators
+- 🏃‍♂️ Activity logging with breakdowns by type and duration
+- 📈 Beautiful responsive Recharts-based graphs
+- 🔄 Pagination support for all data logs
+- 💅 Styled with Tailwind and Radix UI (via ShadCN)
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## 🛠️ Tech Stack
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
+- [Next.js (App Router)](https://nextjs.org)
 - [Tailwind CSS](https://tailwindcss.com)
+- [ShadCN UI](https://ui.shadcn.dev)
+- [Prisma](https://prisma.io) + SQLite
 - [tRPC](https://trpc.io)
+- [Recharts](https://recharts.org)
 
-## Learn More
+## 🚀 Pages Overview
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+/dashboard – Summary with latest logs and trends
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+/macros – Macro history, stacked bar chart, pagination
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+/weight – Weight log list, trend chart
 
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+/activity – Session breakdowns, activity time and type charts
