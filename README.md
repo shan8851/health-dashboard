@@ -23,9 +23,6 @@ This project is a personal health and fitness dashboard built with the [T3 Stack
 ## 🚀 Pages Overview
 
 /dashboard – Summary with latest logs and trends
-
 /macros – Macro history, stacked bar chart, pagination
-
 /weight – Weight log list, trend chart
-
 /activity – Session breakdowns, activity time and type charts
