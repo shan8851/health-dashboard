@@ -9,7 +9,7 @@ import { MacroCard } from "./macroCard";
 
 const ITEMS_PER_PAGE = 5;
 
-export const MacroLogsPage = () => {
+export const MacrosPageClient = () => {
   const [page, setPage] = useState(1);
   const { data, isLoading } = api.macro.getAll.useQuery({
     page,
@@ -39,7 +39,7 @@ export const MacroLogsPage = () => {
             <Paginator
               page={page}
               pageCount={pageCount}
-              onPageChange={setPage}
+              onOpenChangeAction={setPage}
             />
           </div>
         </>

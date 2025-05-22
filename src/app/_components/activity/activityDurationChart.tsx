@@ -7,14 +7,12 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import type { RouterOutputs } from "~/trpc/react";
+
+type ActivityLog = RouterOutputs["activity"]["getAll"]["data"][number];
 
 export interface IActivityDurationChartProps {
-  chartData: {
-    name: string;
-    id: string;
-    date: Date | string;
-    duration: number;
-  }[];
+  chartData: ActivityLog[];
 }
 
 export const ActivityDurationChart = ({

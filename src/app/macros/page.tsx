@@ -1,5 +1,5 @@
-import { MacroLogsPage } from "../_components/macros/macroLogsPage";
+import { MacrosPageClient } from "../_components/macros/macrosPageClient";
 
 export default function MacrosPage() {
-  return <MacroLogsPage />;
+  return <MacrosPageClient />;
 }

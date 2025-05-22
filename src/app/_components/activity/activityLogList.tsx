@@ -13,9 +13,9 @@ import { api } from "~/trpc/react";
 import { EmptyList } from "../application/emptyList";
 import { LoadingSpinner } from "../application/loadingSpinner";
 import { ActivityCard } from "./activityCard";
-import ActivityLogForm from "./activityLogForm";
+import { ActivityLogForm } from "./activityLogForm";
 
-export default function ActivityLogList() {
+export const ActivityLogList = () => {
   const [open, setOpen] = useState(false);
 
   const { data: logs = [], isLoading } = api.activity.getLatest.useQuery();
@@ -49,4 +49,4 @@ export default function ActivityLogList() {
       )}
     </div>
   );
-}
+};

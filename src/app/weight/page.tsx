@@ -1,5 +1,5 @@
-import { WeightLogsPage } from "../_components/weight/weightLogsPage";
+import { WeightPageClient } from "../_components/weight/weightPageClient";
 
 export default function WeightPage() {
-  return <WeightLogsPage />;
+  return <WeightPageClient />;
 }

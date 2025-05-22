@@ -2,17 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { NAV_LINKS } from "~/constants";
 import { cn } from "~/lib/utils";
 
-const navLinks = [
-  { href: "/", label: "Dashboard" },
-  { href: "/macros", label: "Macros" },
-  { href: "/weight", label: "Weight" },
-  { href: "/activities", label: "Activities" },
-  { href: "/settings", label: "Settings" }, // optional future route
-];
-
-export default function Header() {
+export const Header = () => {
   const pathname = usePathname();
 
   return (
@@ -22,7 +15,7 @@ export default function Header() {
           🏋️ Shan’s Health Dashboard
         </h1>
         <nav className="flex gap-4 text-sm font-medium">
-          {navLinks.map(({ href, label }) => (
+          {NAV_LINKS.map(({ href, label }) => (
             <Link
               key={href}
               href={href}
@@ -38,4 +31,4 @@ export default function Header() {
       </div>
     </header>
   );
-}
+};

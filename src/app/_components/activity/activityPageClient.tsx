@@ -11,7 +11,7 @@ import { ActivityTypeChart } from "./activityTypeChart";
 
 const ITEMS_PER_PAGE = 5;
 
-export const ActivityLogsPage = () => {
+export const ActivityPageClient = () => {
   const [page, setPage] = useState(1);
 
   const { data, isLoading } = api.activity.getAll.useQuery({
@@ -86,7 +86,7 @@ export const ActivityLogsPage = () => {
             <Paginator
               page={page}
               pageCount={pageCount}
-              onPageChange={setPage}
+              onOpenChangeAction={setPage}
             />
           </div>
         </>

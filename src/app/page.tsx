@@ -1,13 +1,13 @@
 import { HydrateClient } from "~/trpc/server";
-import ActivityLogList from "./_components/activity/activityLogList";
-import MacroLogList from "./_components/macros/macroLogList";
-import SummaryStats from "./_components/summary/summaryStats";
-import WeightLogList from "./_components/weight/weightLogList";
+import { ActivityLogList } from "./_components/activity/activityLogList";
+import { MacroLogList } from "./_components/macros/macroLogList";
+import { SummaryStats } from "./_components/summary/summaryStats";
+import { WeightLogList } from "./_components/weight/weightLogList";
 
 export default async function Home() {
   return (
     <HydrateClient>
-      <main className="bg-background text-foreground p-6">
+      <div className="bg-background text-foreground p-6">
         <SummaryStats />
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           <section className="border-border bg-card flex h-[600px] flex-col overflow-hidden rounded-md border p-4 shadow-sm">
@@ -35,7 +35,7 @@ export default async function Home() {
             </div>
           </section>
         </div>
-      </main>
+      </div>
     </HydrateClient>
   );
 }

@@ -6,11 +6,11 @@ import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { api } from "~/trpc/react";
 
-export default function MacroLogForm({
-  onSuccess,
-}: {
+interface IMacroLogFormProps {
   onSuccess?: () => void;
-}) {
+}
+
+export const MacroLogForm: React.FC<IMacroLogFormProps> = ({ onSuccess }) => {
   const [form, setForm] = useState({
     calories: "",
     protein: "",
@@ -90,4 +90,4 @@ export default function MacroLogForm({
       </Button>
     </form>
   );
-}
+};

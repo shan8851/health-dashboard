@@ -3,8 +3,8 @@ import { Space_Grotesk } from "next/font/google";
 import { Toaster } from "~/components/ui/sonner";
 import "~/styles/globals.css";
 import { TRPCReactProvider } from "~/trpc/react";
-import Footer from "./_components/layout/footer";
-import Header from "./_components/layout/header";
+import { Footer } from "./_components/layout/footer";
+import { Header } from "./_components/layout/header";
 
 export const metadata: Metadata = {
   title: "Shan's Dashboard",

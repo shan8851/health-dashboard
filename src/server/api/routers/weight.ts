@@ -2,7 +2,6 @@ import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const weightRouter = createTRPCRouter({
-  // Get latest X logs (default 10)
   getLatest: publicProcedure
     .input(
       z.object({ limit: z.number().min(1).max(100).optional() }).optional(),
@@ -16,7 +15,6 @@ export const weightRouter = createTRPCRouter({
       });
     }),
 
-  // Get all logs with pagination
   getAll: publicProcedure
     .input(
       z.object({
@@ -45,7 +43,6 @@ export const weightRouter = createTRPCRouter({
       };
     }),
 
-  // Add a new weight entry
   add: publicProcedure
     .input(
       z.object({

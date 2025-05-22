@@ -6,11 +6,11 @@ import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { api } from "~/trpc/react";
 
-export default function WeightLogForm({
-  onSuccess,
-}: {
+interface IWeightLogFormProps {
   onSuccess?: () => void;
-}) {
+}
+
+export const WeightLogForm: React.FC<IWeightLogFormProps> = ({ onSuccess }) => {
   const [form, setForm] = useState({
     weight: "",
     date: new Date().toISOString().split("T")[0], // yyyy-mm-dd
@@ -59,4 +59,4 @@ export default function WeightLogForm({
       </Button>
     </form>
   );
-}
+};

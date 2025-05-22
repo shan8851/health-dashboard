@@ -6,11 +6,13 @@ import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { api } from "~/trpc/react";
 
-export default function ActivityLogForm({
-  onSuccess,
-}: {
+interface IActivityLogFormProps {
   onSuccess?: () => void;
-}) {
+}
+
+export const ActivityLogForm: React.FC<IActivityLogFormProps> = ({
+  onSuccess,
+}) => {
   const [form, setForm] = useState({
     name: "",
     duration: "",
@@ -77,4 +79,4 @@ export default function ActivityLogForm({
       </Button>
     </form>
   );
-}
+};

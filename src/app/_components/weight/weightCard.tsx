@@ -1,18 +1,13 @@
 import { format } from "date-fns";
 import { getWeightTrend } from "~/app/_utils/weightUtils";
 import { Card, CardHeader, CardTitle } from "~/components/ui/card";
+import type { RouterOutputs } from "~/trpc/react";
 
-export interface IWeightCardProps {
-  prev?: {
-    id: number;
-    date: Date;
-    weight: number;
-  };
-  log: {
-    id: number;
-    date: Date;
-    weight: number;
-  };
+type WeightLog = RouterOutputs["weight"]["getAll"]["data"][number];
+
+interface IWeightCardProps {
+  prev?: WeightLog;
+  log: WeightLog;
 }
 
 export const WeightCard: React.FC<IWeightCardProps> = ({ prev, log }) => {

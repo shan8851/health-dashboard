@@ -8,24 +8,20 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import type { RouterOutputs } from "~/trpc/react";
 
-export interface IActivityChartProps {
-  chartData: {
-    name: string;
-    id: string;
-    date: Date | string;
-    duration: number;
-  }[];
+type ActivityLog = RouterOutputs["activity"]["getAll"]["data"][number];
+
+interface IActivityChartProps {
+  chartData: ActivityLog[];
 }
 
 export const ActivityTypeChart = ({ chartData }: IActivityChartProps) => {
   const aggregated = Object.values(
     chartData.reduce<Record<string, { name: string; total: number }>>(
       (acc, curr) => {
-        if (!acc[curr.name]) {
-          acc[curr.name] = { name: curr.name, total: 0 };
-        }
-        acc[curr.name].total += curr.duration;
+        acc[curr.name] ??= { name: curr.name, total: 0 };
+        acc[curr.name]!.total += curr.duration;
         return acc;
       },
       {},

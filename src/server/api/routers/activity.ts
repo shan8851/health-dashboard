@@ -2,7 +2,6 @@ import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const activityRouter = createTRPCRouter({
-  // Paginated getAll
   getAll: publicProcedure
     .input(
       z
@@ -33,7 +32,6 @@ export const activityRouter = createTRPCRouter({
       };
     }),
 
-  // Just get latest X entries, default 10
   getLatest: publicProcedure
     .input(
       z.object({ count: z.number().min(1).max(50).default(10) }).optional(),
@@ -45,7 +43,6 @@ export const activityRouter = createTRPCRouter({
       });
     }),
 
-  // Mutation to add activity
   add: publicProcedure
     .input(
       z.object({

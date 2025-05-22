@@ -1,5 +1,5 @@
-import { ActivityLogsPage } from "../_components/activity/activityLogsPage";
+import { ActivityPageClient } from "../_components/activity/activityPageClient";
 
 export default function ActivitiesPage() {
-  return <ActivityLogsPage />;
+  return <ActivityPageClient />;
 }

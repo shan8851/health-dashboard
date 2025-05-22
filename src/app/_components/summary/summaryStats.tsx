@@ -8,7 +8,7 @@ import { api } from "~/trpc/react";
 
 type Range = "7d" | "30d" | "90d";
 
-const SummaryStats = () => {
+export const SummaryStats = () => {
   const [range, setRange] = useState<Range>("7d");
 
   const { data, isLoading } = api.summary.get.useQuery(
@@ -74,5 +74,3 @@ const SummaryStats = () => {
     </div>
   );
 };
-
-export default SummaryStats;

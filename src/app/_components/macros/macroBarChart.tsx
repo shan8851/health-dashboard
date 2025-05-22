@@ -15,11 +15,11 @@ import { type RouterOutputs } from "~/trpc/react";
 
 type MacroLog = RouterOutputs["macro"]["getAll"]["data"][number];
 
-type Props = {
+interface IMacroBarChartProps {
   data: MacroLog[];
-};
+}
 
-export function MacroBarChart({ data }: Props) {
+export const MacroBarChart: React.FC<IMacroBarChartProps> = ({ data }) => {
   const chartData = data.map((log) => ({
     date: new Date(log.date).toLocaleDateString("en-GB", {
       day: "2-digit",
@@ -69,4 +69,4 @@ export function MacroBarChart({ data }: Props) {
       </CardContent>
     </Card>
   );
-}
+};

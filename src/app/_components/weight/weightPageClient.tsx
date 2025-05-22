@@ -11,7 +11,7 @@ import { WeightChart } from "./weightChart";
 
 const ITEMS_PER_PAGE = 5;
 
-export const WeightLogsPage = () => {
+export const WeightPageClient = () => {
   const [page, setPage] = useState(1);
   const { data, isLoading } = api.weight.getAll.useQuery({
     page,
@@ -27,6 +27,7 @@ export const WeightLogsPage = () => {
     .map((entry) => ({
       date: format(new Date(entry.date), "dd/MM"),
       weight: entry.weight,
+      id: entry.id,
     }));
 
   return (
@@ -58,7 +59,7 @@ export const WeightLogsPage = () => {
             <Paginator
               page={page}
               pageCount={pageCount}
-              onPageChange={setPage}
+              onOpenChangeAction={setPage}
             />
           </div>
         </>

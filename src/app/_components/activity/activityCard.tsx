@@ -1,14 +1,12 @@
 import { format } from "date-fns";
 import { getActivityIcon, getDurationColor } from "~/app/_utils/activityUtils";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
+import type { RouterOutputs } from "~/trpc/react";
 
-export interface IActivityCardProps {
-  log: {
-    name: string;
-    id: string;
-    date: Date;
-    duration: number;
-  };
+type ActivityLog = RouterOutputs["activity"]["getAll"]["data"][number];
+
+interface IActivityCardProps {
+  log: ActivityLog;
 }
 
 export const ActivityCard: React.FC<IActivityCardProps> = ({ log }) => {

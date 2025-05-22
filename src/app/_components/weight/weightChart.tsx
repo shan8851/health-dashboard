@@ -6,12 +6,12 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import type { RouterOutputs } from "~/trpc/react";
+
+type WeightLog = RouterOutputs["weight"]["getAll"]["data"][number];
 
 export interface IWeightChartProps {
-  chartData: {
-    date: string;
-    weight: number;
-  }[];
+  chartData: WeightLog[];
 }
 
 export const WeightChart: React.FC<IWeightChartProps> = ({ chartData }) => {

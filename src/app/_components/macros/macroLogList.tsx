@@ -13,9 +13,9 @@ import { api } from "~/trpc/react";
 import { EmptyList } from "../application/emptyList";
 import { LoadingSpinner } from "../application/loadingSpinner";
 import { MacroCard } from "./macroCard";
-import MacroLogForm from "./macroLogForm";
+import { MacroLogForm } from "./macroLogForm";
 
-export default function MacroLogList() {
+export const MacroLogList = () => {
   const [open, setOpen] = useState(false);
 
   const { data: logs = [], isLoading } = api.macro.getLatest.useQuery();
@@ -51,4 +51,4 @@ export default function MacroLogList() {
       )}
     </div>
   );
-}
+};

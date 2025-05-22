@@ -13,9 +13,9 @@ import { api } from "~/trpc/react";
 import { EmptyList } from "../application/emptyList";
 import { LoadingSpinner } from "../application/loadingSpinner";
 import { WeightCard } from "./weightCard";
-import WeightLogForm from "./weightLossForm";
+import { WeightLogForm } from "./weightLossForm";
 
-export default function WeightLogList() {
+export const WeightLogList = () => {
   const [open, setOpen] = useState(false);
 
   const { data: logs = [], isLoading } = api.weight.getLatest.useQuery();
@@ -53,4 +53,4 @@ export default function WeightLogList() {
       )}
     </div>
   );
-}
+};

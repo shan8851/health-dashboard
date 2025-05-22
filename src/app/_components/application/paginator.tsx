@@ -9,13 +9,17 @@ import {
   PaginationPrevious,
 } from "~/components/ui/pagination";
 
-type Props = {
+interface IPaginatorProps {
   page: number;
   pageCount: number;
-  onPageChange: (page: number) => void;
-};
+  onOpenChangeAction: (page: number) => void;
+}
 
-export function Paginator({ page, pageCount, onPageChange }: Props) {
+export const Paginator: React.FC<IPaginatorProps> = ({
+  page,
+  pageCount,
+  onOpenChangeAction,
+}) => {
   if (pageCount === 1) return null;
 
   return (
@@ -26,7 +30,7 @@ export function Paginator({ page, pageCount, onPageChange }: Props) {
             href="#"
             onClick={(e) => {
               e.preventDefault();
-              onPageChange(Math.max(page - 1, 1));
+              onOpenChangeAction(Math.max(page - 1, 1));
             }}
           />
         </PaginationItem>
@@ -38,7 +42,7 @@ export function Paginator({ page, pageCount, onPageChange }: Props) {
               isActive={page === i + 1}
               onClick={(e) => {
                 e.preventDefault();
-                onPageChange(i + 1);
+                onOpenChangeAction(i + 1);
               }}
             >
               {i + 1}
@@ -51,11 +55,11 @@ export function Paginator({ page, pageCount, onPageChange }: Props) {
             href="#"
             onClick={(e) => {
               e.preventDefault();
-              onPageChange(Math.min(page + 1, pageCount));
+              onOpenChangeAction(Math.min(page + 1, pageCount));
             }}
           />
         </PaginationItem>
       </PaginationContent>
     </Pagination>
   );
-}
+};
