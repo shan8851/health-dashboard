@@ -1,6 +1,5 @@
 "use client";
 
-import { format } from "date-fns";
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Skeleton } from "~/components/ui/skeleton";
@@ -25,7 +24,7 @@ export const WeightPageClient = () => {
     .slice()
     .reverse()
     .map((entry) => ({
-      date: format(new Date(entry.date), "dd/MM"),
+      date: new Date(entry.date),
       weight: entry.weight,
       id: entry.id,
     }));
