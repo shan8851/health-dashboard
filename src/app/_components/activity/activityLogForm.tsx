@@ -23,6 +23,8 @@ export const ActivityLogForm: React.FC<IActivityLogFormProps> = ({
   const mutation = api.activity.add.useMutation({
     onSuccess: async () => {
       await utils.activity.getAll.invalidate();
+      await utils.activity.getLatest.invalidate();
+      await utils.summary.get.invalidate();
       setForm({
         name: "",
         duration: "",

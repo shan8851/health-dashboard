@@ -21,6 +21,8 @@ export const WeightLogForm: React.FC<IWeightLogFormProps> = ({ onSuccess }) => {
   const mutation = api.weight.add.useMutation({
     onSuccess: async () => {
       await utils.weight.getAll.invalidate();
+      await utils.weight.getLatest.invalidate();
+      await utils.summary.get.invalidate();
       setForm({ weight: "", date: new Date().toISOString().split("T")[0] });
       toast.success("Weight logged", {
         description: `${form.weight} kg on ${form.date}`,

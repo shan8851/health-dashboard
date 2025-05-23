@@ -23,6 +23,8 @@ export const MacroLogForm: React.FC<IMacroLogFormProps> = ({ onSuccess }) => {
   const macroMutation = api.macro.add.useMutation({
     onSuccess: async () => {
       await utils.macro.getAll.invalidate();
+      await utils.macro.getLatest.invalidate();
+      await utils.summary.get.invalidate();
       setForm({
         calories: "",
         protein: "",

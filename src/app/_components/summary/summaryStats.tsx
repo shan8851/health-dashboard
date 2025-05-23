@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Badge } from "~/components/ui/badge";
 import { Card, CardContent } from "~/components/ui/card";
 import { Skeleton } from "~/components/ui/skeleton";
 import { ToggleGroup, ToggleGroupItem } from "~/components/ui/toggle-group";
@@ -24,11 +25,31 @@ export const SummaryStats = () => {
 
   const items = data
     ? [
-        { label: "Avg Weight", value: `${data.avgWeight.toFixed(1)} kg` },
-        { label: "Avg Calories", value: `${data.avgCalories.toFixed(0)} kcal` },
-        { label: "Avg Protein", value: `${data.avgProtein.toFixed(0)} g` },
-        { label: "Activities", value: data.totalActivities.toString() },
-        { label: "Total Activity", value: `${data.totalActivityMinutes} min` },
+        {
+          label: "Avg Weight",
+          value: `${data.avgWeight.toFixed(1)} kg`,
+          delta: data.deltaWeight,
+        },
+        {
+          label: "Avg Calories",
+          value: `${data.avgCalories.toFixed(0)} kcal`,
+          delta: data.deltaCalories,
+        },
+        {
+          label: "Avg Protein",
+          value: `${data.avgProtein.toFixed(0)} g`,
+          delta: data.deltaProtein,
+        },
+        {
+          label: "Activities",
+          value: data.totalActivities.toString(),
+          delta: data.deltaActivities,
+        },
+        {
+          label: "Total Activity",
+          value: `${data.totalActivityMinutes} min`,
+          delta: data.deltaActivityMinutes,
+        },
       ]
     : [];
 
@@ -67,6 +88,21 @@ export const SummaryStats = () => {
                   <span className="text-foreground text-xl font-semibold">
                     {item.value}
                   </span>
+                  {item.delta !== null && (
+                     <Badge
+                      variant={
+                        item.delta > 0
+                          ? "default"
+                          : item.delta < 0
+                            ? "destructive"
+                            : "secondary"
+                      }
+                      className="mt-1 text-[11px]"
+                    >
+                      {item.delta > 0 ? "↑" : item.delta < 0 ? "↓" : "→"}{" "}
+                      {Math.abs(item.delta).toFixed(1)}%
+                    </Badge>
+                  )}
                 </CardContent>
               </Card>
             ))}
