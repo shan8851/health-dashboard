@@ -1,6 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import {
+  getCalorieIndicator,
+  getProteinIndicator,
+} from "~/app/_utils/macroUtils";
+import { getWeightIndicator } from "~/app/_utils/weightUtils";
 import { Badge } from "~/components/ui/badge";
 import { Card, CardContent } from "~/components/ui/card";
 import { Skeleton } from "~/components/ui/skeleton";
@@ -29,16 +34,19 @@ export const SummaryStats = () => {
           label: "Avg Weight",
           value: `${data.avgWeight.toFixed(1)} kg`,
           delta: data.deltaWeight,
+          icon: getWeightIndicator(data.avgWeight),
         },
         {
           label: "Avg Calories",
           value: `${data.avgCalories.toFixed(0)} kcal`,
           delta: data.deltaCalories,
+          icon: getCalorieIndicator(data.avgCalories),
         },
         {
           label: "Avg Protein",
           value: `${data.avgProtein.toFixed(0)} g`,
           delta: data.deltaProtein,
+          icon: getProteinIndicator(data.avgProtein),
         },
         {
           label: "Activities",
@@ -86,19 +94,10 @@ export const SummaryStats = () => {
                     {item.label}
                   </span>
                   <span className="text-foreground text-xl font-semibold">
-                    {item.value}
+                    {item.value} {item.icon}
                   </span>
                   {item.delta !== null && (
-                     <Badge
-                      variant={
-                        item.delta > 0
-                          ? "default"
-                          : item.delta < 0
-                            ? "destructive"
-                            : "secondary"
-                      }
-                      className="mt-1 text-[11px]"
-                    >
+                    <Badge variant="secondary" className="mt-1 text-[11px]">
                       {item.delta > 0 ? "↑" : item.delta < 0 ? "↓" : "→"}{" "}
                       {Math.abs(item.delta).toFixed(1)}%
                     </Badge>

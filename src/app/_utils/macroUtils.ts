@@ -1,9 +1,20 @@
+import { CALORIE_TARGET, PROTEIN_TARGET } from "~/constants";
+
 export const getCalorieIndicator = (calories: number) => {
-  const min = 1600;
-  const max = 2200;
+  const min = CALORIE_TARGET.min;
+  const max = CALORIE_TARGET.max;
 
   if (calories < min) return "⬇️";
   if (calories > max) return "⚠️";
+  return "✅";
+};
+
+export const getProteinIndicator = (protein: number) => {
+  const min = PROTEIN_TARGET.min;
+  const max = PROTEIN_TARGET.max;
+
+  if (protein < min) return "⬇️";
+  if (protein > max) return "⚠️";
   return "✅";
 };
 
